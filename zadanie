@@ -1,0 +1,55 @@
+class Transport:
+    def __init__(self, model, passengers, average_speed):
+        self.model = model
+        self.passengers = passengers
+        self.average_speed = average_speed
+
+    def fuel_consumption(self, distance):
+        return 0
+
+    def travel_time(self, distance):
+        return distance / self.average_speed
+
+class Bicycle(Transport):
+    def __init__(self, model, passengers=1, average_speed=20):
+        super().__init__(model, passengers, average_speed)
+
+class Car(Transport):
+    def __init__(self, model, passengers, average_speed, fuel_consumption_rate):
+        super().__init__(model, passengers, average_speed)
+        self.fuel_consumption_rate = fuel_consumption_rate
+
+    def fuel_consumption(self, distance):
+        return self.fuel_consumption_rate * distance
+
+class Truck(Transport):
+    def __init__(self, model, passengers, average_speed, cargo_capacity):
+        super().__init__(model, passengers, average_speed)
+        self.cargo_capacity = cargo_capacity
+
+    def fuel_consumption(self, distance):
+        return 1.5 * distance
+
+# Демонстрация работы классов
+choice = input("Выберите тип транспорта для демонстрации (1 - велосипед, 2 - автомобиль, 3 - грузовик): ")
+
+if choice == "1":
+    bicycle = Bicycle("BMX")
+    distance = 30
+    print(f"Для велосипеда {bicycle.model} потребуется {bicycle.fuel_consumption(distance)} литров топлива для поездки длиной {distance} км")
+    print(f"Время поездки на велосипеде {bicycle.model} составит {bicycle.travel_time(distance)} часов")
+
+elif choice == "2":
+    car = Car("Toyota", 4, 100, 0.08)
+    distance = 200
+    print(f"Для автомобиля {car.model} потребуется {car.fuel_consumption(distance)} литров топлива для поездки длиной {distance} км")
+    print(f"Время поездки на автомобиле {car.model} составит {car.travel_time(distance)} часов")
+
+elif choice == "3":
+    truck = Truck("Volvo", 2, 80, 5000)
+    distance = 500
+    print(f"Для грузовика {truck.model} потребуется {truck.fuel_consumption(distance)} литров топлива для поездки длиной {distance} км")
+    print(f"Время поездки на грузовике {truck.model} составит {truck.travel_time(distance)} часов")
+
+else:
+    print("Неверный выбор. Пожалуйста, выберите 1, 2 или 3.")
